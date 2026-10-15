@@ -14,6 +14,7 @@
 > - **Security: path traversal fix in media download.** Document filenames come from the sender and were used
 >   unsanitized (`store/<chat>/<filename>`); a file named `../../../.zshrc` could overwrite files outside
 >   `store/`. Both the filename and the chat JID are now reduced to their base name.
+> - **Background service on macOS:** `scripts/macos-service.sh` runs the bridge under launchd (no terminal needed).
 > - `.gitignore` now excludes `store/` (session keys, messages, media) and the built binary.
 >
 > Licensed under the original MIT license.
@@ -101,6 +102,16 @@ Here's an example of what you can do when it's connected to Claude.
    Open Claude Desktop and you should now see WhatsApp as an available integration.
 
    Or restart Cursor.
+
+### Run the bridge in the background (macOS)
+
+Instead of keeping a terminal open, run the bridge as a launchd service that starts at login and restarts if it crashes:
+
+1. Pair once in a terminal: `cd whatsapp-bridge && ./whatsapp-bridge`, scan the QR code, then press Ctrl+C.
+2. Install the service: `scripts/macos-service.sh install`
+
+Manage it with `scripts/macos-service.sh status | restart | logs | uninstall`. Output goes to `~/Library/Logs/whatsapp-bridge.log`.
+If WhatsApp logs the device out (roughly every 20 days), run `scripts/macos-service.sh uninstall`, pair again in a terminal, and reinstall.
 
 ### Windows Compatibility
 
