@@ -1,3 +1,7 @@
 *.db
 claude_desktop_config.json
 whatsapp.log
+# local runtime data (WhatsApp session, messages, downloaded media) and build output
+whatsapp-bridge/store/
+whatsapp-bridge/whatsapp-bridge
+.venv/

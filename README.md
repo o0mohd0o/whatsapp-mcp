@@ -1,5 +1,23 @@
 # WhatsApp MCP Server
 
+> **About this fork**
+>
+> This is a maintained fork of [lharries/whatsapp-mcp](https://github.com/lharries/whatsapp-mcp).
+> All credit for the original design and implementation goes to **[Luke Harries](https://github.com/lharries)** —
+> thank you for building and open-sourcing this project. 🙏
+>
+> Changes in this fork:
+> - **whatsmeow upgraded** to the current release (Oct 2026) so the bridge can still pair and sync with WhatsApp;
+>   updated the bridge for the new context-aware whatsmeow API.
+> - **Security: REST API bound to `127.0.0.1`** instead of all interfaces (`:8080`). The unauthenticated
+>   `/api/send` endpoint was reachable by any device on the local network.
+> - **Security: path traversal fix in media download.** Document filenames come from the sender and were used
+>   unsanitized (`store/<chat>/<filename>`); a file named `../../../.zshrc` could overwrite files outside
+>   `store/`. Both the filename and the chat JID are now reduced to their base name.
+> - `.gitignore` now excludes `store/` (session keys, messages, media) and the built binary.
+>
+> Licensed under the original MIT license.
+
 This is a Model Context Protocol (MCP) server for WhatsApp.
 
 With this you can search and read your personal Whatsapp messages (including images, videos, documents, and audio messages), search your contacts and send messages to either individuals or groups. You can also send media files including images, videos, documents, and audio messages.
